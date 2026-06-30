@@ -289,6 +289,12 @@
         }
         .card-back { transform: rotateY(180deg); }
         
+        .card-back {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
         .card-question {
             font-size: 1.05rem;
             line-height: 1.8;
@@ -297,7 +303,9 @@
         .card-answer {
             font-size: 1rem;
             line-height: 1.8;
-            padding-top: 28px;
+            margin: auto;
+            padding: 0 4px 8px 4px;
+            max-width: 100%;
         }
         .card-question::-webkit-scrollbar,
         .card-answer::-webkit-scrollbar { width: 4px; }
@@ -355,41 +363,6 @@
             z-index: 2;
         }
         /* 左上角标签 - 基础样式 */
-        .card-tag {
-            position: absolute;
-            top: 14px; left: 16px;
-            font-size: 0.625rem;
-            padding: 3px 10px;
-            border-radius: 10px;
-            letter-spacing: 1px;
-            font-weight: 600;
-            z-index: 2;
-            white-space: nowrap;
-        }
-        /* 蓝色 - 考点（默认） */
-        .card-tag--default {
-            background: rgba(80, 140, 255, 0.12);
-            border: 1px solid rgba(80, 140, 255, 0.28);
-            color: #7eb3ff;
-        }
-        /* 红色 - 核心考点 */
-        .card-tag--core {
-            background: rgba(255, 80, 80, 0.13);
-            border: 1px solid rgba(255, 80, 80, 0.3);
-            color: #ff7b7b;
-        }
-        /* 橙色 - 易错 */
-        .card-tag--tricky {
-            background: rgba(255, 165, 0, 0.13);
-            border: 1px solid rgba(255, 165, 0, 0.3);
-            color: #ffa500;
-        }
-        /* 紫色 - 难点 */
-        .card-tag--hard {
-            background: rgba(160, 100, 255, 0.13);
-            border: 1px solid rgba(160, 100, 255, 0.3);
-            color: #b07cff;
-        }
         .card-difficulty {
             position: absolute;
             bottom: 14px; right: 16px;
@@ -1182,21 +1155,6 @@
             var oldDiff = frontEl.querySelector('.card-difficulty');
             if (oldDiff) oldDiff.remove();
 
-            // 左上角考点标签（多色支持）
-            if (card.tagText) {
-                var tag = document.createElement('div');
-                // 标签颜色映射
-                var tagClassMap = {
-                    '考点': 'card-tag--default',
-                    '核心考点': 'card-tag--core',
-                    '易错': 'card-tag--tricky',
-                    '难点': 'card-tag--hard',
-                };
-                var cls = 'card-tag ' + (tagClassMap[card.tagText] || 'card-tag--default');
-                tag.className = cls;
-                tag.textContent = card.tagText;
-                frontEl.appendChild(tag);
-            }
             // 右下角难度点
             if (card.difficulty > 0) {
                 var diff = document.createElement('div');
@@ -1208,7 +1166,7 @@
             // 背面：答案 + 解析 + 拓展
             var answerHtml = '';
             if (card.analysis) {
-                answerHtml += '<div class="analysis-section"><div class="section-label"><span class="info-icon">i</span>考点提示</div>' + card.analysis + '</div>';
+                answerHtml += '<div class="analysis-section"><div class="section-label"><span class="info-icon">i</span>解析</div>' + card.analysis + '</div>';
             }
             if (card.expansion) {
                 answerHtml += '<div class="expansion-section"><div class="section-label">【拓展】</div>' + card.expansion + '</div>';
@@ -1281,11 +1239,11 @@
                         var div = document.createElement('div');
                         div.className = 'recite-item';
                         // 正面显示问题 + 标签
-                        var tagHtml = card.tagText ? ' <span style="color:var(--accent);font-size:0.75rem;margin-left:4px;">[' + card.tagText + ']</span>' : '';
+                        var tagHtml = '';
                         var qHtml = '<div class="recite-q">' + (card.question || '') + tagHtml + '</div>';
                         // 背面显示答案 + 解析 + 拓展
                         var aHtml = '<div class="recite-a">' + (card.answer || '');
-                        if (card.analysis) aHtml += '<div style="margin-top:8px;padding:12px;background:rgba(124,77,255,0.08);border-left:3px solid rgba(124,77,255,0.4);border-radius:0 8px 8px 0;"><strong style="color:#7c4dff;">💡 考点提示</strong><br>' + card.analysis + '</div>';
+                        if (card.analysis) aHtml += '<div style="margin-top:8px;padding:12px;background:rgba(124,77,255,0.08);border-left:3px solid rgba(124,77,255,0.4);border-radius:0 8px 8px 0;"><strong style="color:#7c4dff;">💡 解析</strong><br>' + card.analysis + '</div>';
                         if (card.expansion) aHtml += '<div style="margin-top:6px;"><strong>【拓展】</strong>' + card.expansion + '</div>';
                         aHtml += '</div>';
                         div.innerHTML = qHtml + aHtml;
