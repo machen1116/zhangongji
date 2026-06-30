@@ -259,7 +259,30 @@
         .mode-desc { font-size: 0.7rem; color: var(--text-secondary); margin-top: 4px; }
         
         /* 学习页面 */
-        #page-study { padding-bottom: 120px; }
+        #page-study {
+            padding-bottom: 120px;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        #page-study > .page-header {
+            flex-shrink: 0;
+        }
+        #page-study > .card-container {
+            flex: 1 1 auto;
+            min-height: 0;
+        }
+        /* 按钮组固定在底部可见区域 */
+        #page-study .btn-group {
+            flex-shrink: 0;
+            position: sticky;
+            bottom: 0;
+            z-index: 10;
+            background: var(--bg);
+            padding-top: 8px;
+            padding-bottom: 4px;
+        }
         .card-container { perspective: 1000px; margin-bottom: 16px; }
         .card-wrapper {
             position: relative;
@@ -279,8 +302,9 @@
             position: absolute;
             width: 100%;
             min-height: 300px;
-            max-height: 60vh;
-            overflow: hidden;
+            max-height: calc(100vh - 280px);
+            overflow-y: auto;
+            overflow-x: hidden;
             backface-visibility: hidden;
             background: var(--card-bg);
             border: 1px solid var(--border);
@@ -292,7 +316,7 @@
         .card-question {
             font-size: 1.05rem;
             line-height: 1.8;
-            max-height: calc(60vh - 60px);
+            max-height: calc(100vh - 340px);
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: rgba(255,255,255,0.15) transparent;
@@ -301,7 +325,7 @@
         .card-answer {
             font-size: 1rem;
             line-height: 1.8;
-            max-height: calc(60vh - 60px);
+            max-height: calc(100vh - 340px);
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: rgba(255,255,255,0.15) transparent;
@@ -694,6 +718,8 @@
             position: absolute;
             width: 100%;
             min-height: 280px;
+            max-height: calc(100vh - 300px);
+            overflow-y: auto;
             top: 0; left: 0;
         }
         /* 按钮组：紧跟卡片 */
