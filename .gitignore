@@ -1,0 +1,8 @@
+# 版本备份文件（只保留最新版 index.html + data.js）
+index-v*.html
+data-v*.js
+*.bak
+
+# 系统文件
+.DS_Store
+Thumbs.db
