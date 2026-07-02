@@ -274,16 +274,17 @@
         }
         .mode-tab {
             flex: 1;
-            padding: 10px 6px;
+            padding: 10px 4px;
             border: 1px solid var(--border);
             border-radius: 10px;
             background: var(--card-bg);
             color: var(--text);
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 600;
             cursor: pointer;
             text-align: center;
             transition: all 0.2s ease;
+            white-space: nowrap;
         }
         .mode-tab:hover { border-color: var(--accent); }
         .mode-tab.active {
@@ -392,6 +393,9 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            max-height: calc(100vh - 260px);
+            overflow-y: auto;
+            overflow-x: hidden;
         }
         .card-question {
             font-size: 1.05rem;
@@ -404,6 +408,9 @@
             margin: auto;
             padding: 0 4px 8px 4px;
             max-width: 100%;
+            max-height: calc(100vh - 320px);
+            overflow-y: auto;
+            word-break: break-word;
         }
         .card-question::-webkit-scrollbar,
         .card-answer::-webkit-scrollbar { width: 4px; }
@@ -1064,11 +1071,11 @@
             </div>
 
             <!-- 模式切换 -->
-            <div class="mode-tabs" id="mode-tabs">
-                <div class="mode-tab active" data-mode="card" onclick="switchMode('card')">📖 顺序学习</div>
-                <div class="mode-tab" data-mode="random" onclick="switchMode('random')">🎲 随机抽背</div>
-                <div class="mode-tab" data-mode="display" onclick="switchMode('display')">📝 背诵</div>
-                <div class="mode-tab" data-mode="wrong" onclick="switchMode('wrong')">🔄 错题重练</div>
+            <div class="mode-tabs" id="mode-tabs" style="flex-wrap:nowrap;gap:4px;">
+                <div class="mode-tab active" data-mode="card" onclick="switchMode('card')" style="font-size:0.7rem;padding:8px 2px;min-width:0;">顺序学习</div>
+                <div class="mode-tab" data-mode="random" onclick="switchMode('random')" style="font-size:0.7rem;padding:8px 2px;min-width:0;">随机抽背</div>
+                <div class="mode-tab" data-mode="display" onclick="switchMode('display')" style="font-size:0.7rem;padding:8px 2px;min-width:0;">背诵</div>
+                <div class="mode-tab" data-mode="wrong" onclick="switchMode('wrong')" style="font-size:0.7rem;padding:8px 2px;min-width:0;">错题重练</div>
             </div>
 
             <!-- 章节列表 -->
